@@ -34,20 +34,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ylg-qQ-FOx">
-                                <rect key="frame" x="20" y="234" width="560" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="mUj-Zk-b4D"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ama-bl-hH3">
                                 <rect key="frame" x="20" y="272" width="560" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.50207196663935338" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DY9-aW-wc5"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiq-go-fk3">
                                 <rect key="frame" x="20" y="317" width="195" height="21"/>
@@ -64,15 +59,28 @@
                                     <constraint firstAttribute="width" constant="61" id="Yot-bW-FMb"/>
                                 </constraints>
                                 <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="signupPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v6T-Ty-CDl"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ylg-qQ-FOx">
+                                <rect key="frame" x="20" y="234" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mUj-Zk-b4D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ama-bl-hH3" firstAttribute="trailing" secondItem="ylg-qQ-FOx" secondAttribute="trailing" id="6dU-kg-5Fl"/>
+                            <constraint firstItem="TID-3z-lSK" firstAttribute="top" secondItem="Ama-bl-hH3" secondAttribute="bottom" constant="11" id="7hr-qf-Yai"/>
                             <constraint firstItem="VtW-OO-rGf" firstAttribute="top" secondItem="2zL-Tm-s7E" secondAttribute="bottom" constant="8" symbolic="YES" id="Bim-RT-25y"/>
                             <constraint firstItem="TID-3z-lSK" firstAttribute="leading" secondItem="Tiq-go-fk3" secondAttribute="trailing" constant="8" symbolic="YES" id="Dti-LW-0LJ"/>
                             <constraint firstItem="VtW-OO-rGf" firstAttribute="trailing" secondItem="ylg-qQ-FOx" secondAttribute="trailing" id="FJB-7Q-tHx"/>
                             <constraint firstItem="VtW-OO-rGf" firstAttribute="trailing" secondItem="2zL-Tm-s7E" secondAttribute="trailing" id="Get-va-ANn"/>
+                            <constraint firstItem="Tiq-go-fk3" firstAttribute="top" secondItem="Ama-bl-hH3" secondAttribute="bottom" constant="15" id="IJr-M5-QEI"/>
                             <constraint firstItem="VtW-OO-rGf" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Kpg-Rx-6iy"/>
                             <constraint firstItem="2zL-Tm-s7E" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="147" id="OOP-13-5mT"/>
                             <constraint firstItem="ylg-qQ-FOx" firstAttribute="top" secondItem="VtW-OO-rGf" secondAttribute="bottom" constant="8" symbolic="YES" id="bRP-H9-Mlt"/>
@@ -86,10 +94,50 @@
                             <constraint firstItem="Ama-bl-hH3" firstAttribute="leading" secondItem="ylg-qQ-FOx" secondAttribute="leading" id="wDq-xd-Rxb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailField" destination="VtW-OO-rGf" id="EpB-j0-5Bj"/>
+                        <outlet property="passwordField" destination="ylg-qQ-FOx" id="FjB-FI-E8h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="600" y="477"/>
+            <point key="canvasLocation" x="285" y="473"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="zgK-xw-eSa">
+            <objects>
+                <viewController id="Y0z-9C-Lub" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TTl-2u-q4A"/>
+                        <viewControllerLayoutGuide type="bottom" id="IcF-CL-LJa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nXc-nK-CM8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Zde-z2-pya"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PgN-2d-uj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1980" y="420"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="9pQ-Qs-3bB">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1WX-Lp-IYg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="UFA-w4-UVM">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Y0z-9C-Lub" kind="relationship" relationship="viewControllers" id="6bT-xZ-YXm"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ALD-YW-awe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1168" y="420"/>
         </scene>
     </scenes>
 </document>
