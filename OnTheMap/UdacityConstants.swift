@@ -20,6 +20,7 @@ struct UdacityConstants {
         static let SignupURL = "https://www.udacity.com/account/auth#!/signin"
         static let SessionPath = "/session"
         static let UserPath = "/users"
+        static let Slash = "/"
     }
     
     // MARK: Udacity Parameter Keys
@@ -49,6 +50,10 @@ struct UdacityConstants {
         static let Session = "session"
         static let Expiration = "expiration"
         static let ID = "id"
+        static let User = "user"
+        static let FirstName = "first_name"
+        static let LastName = "last_name"
+        static let LinkedInURL = "linkedin_url"
     }
     
     //Left off here...

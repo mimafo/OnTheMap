@@ -50,14 +50,86 @@ class UdacityClient {
                 return
             }
             
-            loginCompletionHandler(success: true, errorMessage: nil)
+            self.fetchUserInfo { (success, errorMessage) -> Void in
+                
+                loginCompletionHandler(success: success, errorMessage: errorMessage)
+                
+            }
+            
+        }
+        
+    }
+    
+    func fetchUserInfo(userInfoCompletionHandler: (success: Bool, errorMessage: String?) -> Void) -> Void {
+        
+        let genericUserMessage = "Retrieving user info failed"
+        
+        self.getUserInfo { (results, error) -> Void in
+            
+            
+            func unsuccessful() {
+                userInfoCompletionHandler(success: false, errorMessage: genericUserMessage)
+                return
+            }
+            
+            if let error = error {
+                print("\(error)")
+                unsuccessful()
+            }
+            
+            print("\(results)")
+            
+            //Parse through the result
+            guard let userInfo = results[UdacityConstants.UdacityResponseKeys.User] as? [String: AnyObject] else {
+                unsuccessful()
+                return
+            }
+            
+            if let firstName = userInfo[UdacityConstants.UdacityResponseKeys.FirstName] as? String {
+                self.udacityUser.firstName = firstName
+            } else {
+                unsuccessful()
+            }
+            
+            if let lastName = userInfo[UdacityConstants.UdacityResponseKeys.LastName] as? String {
+                self.udacityUser.lastName = lastName
+            } else {
+                unsuccessful()
+            }
+            
+            if let linkedInURL = userInfo[UdacityConstants.UdacityResponseKeys.LinkedInURL] as? String {
+                self.udacityUser.userURL = linkedInURL
+            }
+
+            userInfoCompletionHandler(success: true, errorMessage: nil)
+            
+        }
+    }
+    
+    //MARK: High level action methods
+    func doUserLogout(username: String, password: String, logoutCompletionHandler: (success: Bool, errorMessage: String?) -> Void) {
+     
+        let genericLogoutMessage = "Logout failed"
+        
+        self.deleteUserSession { (result, error) -> Void in
+            
+            //Regardless of success or failure, initialize the user object
+            self.udacityUser = UdacityUser()
+            
+            if let error = error {
+                print("\(error)")
+                logoutCompletionHandler(success: false, errorMessage: genericLogoutMessage)
+                return
+            }
+            
+            logoutCompletionHandler(success: true, errorMessage: nil)
             
         }
         
     }
     
     //MARK: Build request endpoints
-    func postUserLogin(username: String, password: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    private func postUserLogin(username: String, password: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let request = NSMutableURLRequest(URL: self.buildURLPath([UdacityConstants.Udacity.SessionPath]))
         
@@ -72,7 +144,7 @@ class UdacityClient {
         
     }
     
-    func deleteUserSession(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    private func deleteUserSession(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
      
         let request = NSMutableURLRequest(URL: self.buildURLPath([UdacityConstants.Udacity.SessionPath]))
         request.HTTPMethod = UdacityConstants.UdacityMethods.Delete
@@ -94,6 +166,15 @@ class UdacityClient {
         
         //Execute the request
         return self.executeRequest(request, domain: "postUserLogin", completionHandler: completionHandler)
+        
+    }
+    
+    private func getUserInfo(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+     
+        let request = NSMutableURLRequest(URL: self.buildURLPath([UdacityConstants.Udacity.UserPath, UdacityConstants.Udacity.Slash, self.udacityUser.accountKey]))
+        request.HTTPMethod = UdacityConstants.UdacityMethods.Get
+        
+        return self.executeRequest(request, domain: "getUserInfo", completionHandler: completionHandler)
         
     }
     
@@ -154,7 +235,7 @@ class UdacityClient {
     }
     
     //MARK: Convenience Methods
-    func buildURLPath(pathList: [String]) -> NSURL {
+    private func buildURLPath(pathList: [String]) -> NSURL {
         
         let components = NSURLComponents()
         components.scheme = UdacityConstants.Udacity.ApiScheme

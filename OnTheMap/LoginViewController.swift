@@ -75,6 +75,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.displayMessage("Session ID: \(self.udacityClient.udacityUser.sessionID)")
                 self.displayMessage("Key: \(self.udacityClient.udacityUser.accountKey)")
                 
+                self.displayMessage("First Name: \(self.udacityClient.udacityUser.firstName)")
+                self.displayMessage("Last Name: \(self.udacityClient.udacityUser.lastName)")
+                self.displayMessage("URL: \(self.udacityClient.udacityUser.userURL)")
+                
             } else {
                 
                 self.displayMessage("Login failed")

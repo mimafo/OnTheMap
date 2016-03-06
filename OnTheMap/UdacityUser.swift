@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UdacityUser {
+class UdacityUser {
     
     //Store account data
     var accountKey = ""
@@ -17,5 +17,10 @@ struct UdacityUser {
     //Store session data
     var expiration = ""
     var sessionID = ""
+    
+    //User Info
+    var firstName = ""
+    var lastName = ""
+    var userURL = ""
     
 }

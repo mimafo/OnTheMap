@@ -120,7 +120,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PgN-2d-uj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1980" y="420"/>
+            <point key="canvasLocation" x="1983" y="331"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gu0-bc-X5p">
+            <objects>
+                <viewController id="dSb-gp-EUo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iaR-ze-ij1"/>
+                        <viewControllerLayoutGuide type="bottom" id="RwK-Rm-Sgh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6SJ-gx-0Zz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iRS-SQ-ArG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1983" y="1051"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9pQ-Qs-3bB">
