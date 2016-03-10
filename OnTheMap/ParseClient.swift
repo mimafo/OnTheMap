@@ -33,6 +33,10 @@ class ParseClient: NetworkClient {
                 unsuccessful()
             }
             
+            if result == nil {
+                unsuccessful()
+            }
+            
             print("\(result)")
             
             //Parse through the result

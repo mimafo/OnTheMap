@@ -84,6 +84,7 @@ class NetworkClient: NSObject {
         components.path = path
         
         if let queryList = queryList {
+            components.queryItems = [NSURLQueryItem]()
             for (key,value) in queryList {
                 let queryItem = NSURLQueryItem(name: key, value: "\(value)")
                 components.queryItems!.append(queryItem)

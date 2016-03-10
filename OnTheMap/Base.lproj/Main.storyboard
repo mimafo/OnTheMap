@@ -123,23 +123,33 @@
             <point key="canvasLocation" x="2436" y="154"/>
         </scene>
         <!--List-->
-        <scene sceneID="gu0-bc-X5p">
+        <scene sceneID="Jj5-CC-sCb">
             <objects>
-                <viewController id="dSb-gp-EUo" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="iaR-ze-ij1"/>
-                        <viewControllerLayoutGuide type="bottom" id="RwK-Rm-Sgh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6SJ-gx-0Zz">
+                <tableViewController id="6ZX-Gv-FcA" customClass="ListViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kEl-qs-9m3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="List" image="List" id="I5g-DS-20a"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iRS-SQ-ArG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StudentTableViewCell" id="3fv-en-Ygc">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3fv-en-Ygc" id="HTp-px-lJN">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="6ZX-Gv-FcA" id="hAA-4u-Rpq"/>
+                            <outlet property="delegate" destination="6ZX-Gv-FcA" id="Ugg-0G-v8q"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="List" image="List" id="BUr-ku-qFW"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3BH-ZT-VN6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="970"/>
+            <point key="canvasLocation" x="2436" y="929"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="9pQ-Qs-3bB">
@@ -153,7 +163,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Y0z-9C-Lub" kind="relationship" relationship="viewControllers" id="6bT-xZ-YXm"/>
-                        <segue destination="dSb-gp-EUo" kind="relationship" relationship="viewControllers" id="3uS-pS-ujP"/>
+                        <segue destination="6ZX-Gv-FcA" kind="relationship" relationship="viewControllers" id="6ZB-vr-z9q"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ALD-YW-awe" userLabel="First Responder" sceneMemberID="firstResponder"/>
