@@ -79,9 +79,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.displayMessage("Last Name: \(self.udacityClient.udacityUser.lastName)")
                 self.displayMessage("URL: \(self.udacityClient.udacityUser.userURL)")
                 
+                performUIUpdatesOnMain {
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MainNavigationController") as! UINavigationController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                }
+                
             } else {
                 
-                self.displayMessage("Login failed")
+                self.displayMessage(errorMessage!)
                 
             }
             
@@ -102,14 +107,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         print(message)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

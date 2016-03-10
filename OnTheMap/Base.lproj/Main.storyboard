@@ -103,7 +103,7 @@
             </objects>
             <point key="canvasLocation" x="285" y="473"/>
         </scene>
-        <!--Item-->
+        <!--Map-->
         <scene sceneID="zgK-xw-eSa">
             <objects>
                 <viewController id="Y0z-9C-Lub" sceneMemberID="viewController">
@@ -116,13 +116,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Zde-z2-pya"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Map" id="Zde-z2-pya"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PgN-2d-uj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1983" y="331"/>
+            <point key="canvasLocation" x="2436" y="154"/>
         </scene>
-        <!--View Controller-->
+        <!--List-->
         <scene sceneID="gu0-bc-X5p">
             <objects>
                 <viewController id="dSb-gp-EUo" sceneMemberID="viewController">
@@ -135,27 +135,50 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="List" image="List" id="I5g-DS-20a"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRS-SQ-ArG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1983" y="1051"/>
+            <point key="canvasLocation" x="2436" y="970"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--On The Map-->
         <scene sceneID="9pQ-Qs-3bB">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1WX-Lp-IYg" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="On The Map" id="UlB-Gg-3pf"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="UFA-w4-UVM">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="Y0z-9C-Lub" kind="relationship" relationship="viewControllers" id="6bT-xZ-YXm"/>
+                        <segue destination="dSb-gp-EUo" kind="relationship" relationship="viewControllers" id="3uS-pS-ujP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ALD-YW-awe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1168" y="420"/>
+            <point key="canvasLocation" x="1627" y="412"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NOP-Wi-bEg">
+            <objects>
+                <navigationController storyboardIdentifier="MainNavigationController" id="2Sb-9d-lAb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BiE-54-LHx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="1WX-Lp-IYg" kind="relationship" relationship="rootViewController" id="Q1U-FH-Yio"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CXo-Yv-NdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="931" y="412"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="List" width="32" height="32"/>
+        <image name="Map" width="32" height="32"/>
+    </resources>
 </document>
