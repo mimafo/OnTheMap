@@ -37,7 +37,7 @@ struct ParseConstants {
     // MARK: Parse HTTP Header values
     struct ParseHeaderValues {
         static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
-        static let ApiKey = " QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let ApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     }
     
     // MARK: Parse Query String values

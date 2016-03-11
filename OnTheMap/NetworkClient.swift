@@ -12,6 +12,7 @@ class NetworkClient: NSObject {
     
     //MARK: Properties
     var session = NSURLSession.sharedSession()
+    internal var offset = 0
     
     //MARK: Generic request processing methods
     internal func executeRequest(request: NSURLRequest, domain: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
@@ -42,7 +43,7 @@ class NetworkClient: NSObject {
                 return
             }
             
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+            let newData = data.subdataWithRange(NSMakeRange(self.offset, data.length - self.offset)) /* subset response data! */
             
             /* Parse the data and use the data (happens in completion handler) */
             self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandler)

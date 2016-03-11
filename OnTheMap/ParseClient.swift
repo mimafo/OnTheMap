@@ -86,11 +86,12 @@ class ParseClient: NetworkClient {
         
         let queryList = [ParseConstants.ParseQueryKeys.Order : ParseConstants.ParseQueryValues.DescUpdatedAt,
             ParseConstants.ParseQueryKeys.Limit : maxCount]
+        //let queryList = [ParseConstants.ParseQueryKeys.Limit : maxCount]
         
         let request = NSMutableURLRequest(URL: self.buildURLPath([ParseConstants.Parse.StudentLocationPath], queryList: queryList))
         request.HTTPMethod = ParseConstants.ParseMethods.Get
-        request.addValue(ParseConstants.ParseHeaderKeys.ApiKey, forHTTPHeaderField: ParseConstants.ParseHeaderValues.ApiKey)
-        request.addValue(ParseConstants.ParseHeaderKeys.ApplicationID, forHTTPHeaderField: ParseConstants.ParseHeaderValues.ApplicationID)
+        request.addValue(ParseConstants.ParseHeaderValues.ApiKey, forHTTPHeaderField: ParseConstants.ParseHeaderKeys.ApiKey)
+        request.addValue(ParseConstants.ParseHeaderValues.ApplicationID, forHTTPHeaderField: ParseConstants.ParseHeaderKeys.ApplicationID)
         
         return self.executeRequest(request, domain: "getStudentLocation", completionHandler: completionHandler)
         

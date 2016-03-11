@@ -13,6 +13,12 @@ class UdacityClient : NetworkClient {
     //MARK: Properties
     var udacityUser = UdacityUser()
     
+    //MARK: Initializer
+    override init() {
+        super.init()
+        self.offset = 5
+    }
+    
     //MARK: High level action methods
     func doUserLogin(username: String, password: String, loginCompletionHandler: (success: Bool, errorMessage: String?) -> Void) {
         
