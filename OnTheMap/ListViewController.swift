@@ -18,11 +18,15 @@ class ListViewController: UITableViewController {
         return self.parseClient.students
     }
     
+    let pinImage = UIImage(named: "Pin")
+    
     //MARK: View Controller methods
     override func viewDidLoad() {
         
         //Initialize the View
-        loadStudents()
+        if students.count == 0 {
+            loadStudents()
+        }
         
     }
     
@@ -33,14 +37,15 @@ class ListViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        /* Get cell type */
+        //Get the cell and student
         let cellReuseIdentifier = "StudentTableViewCell"
         let student = students[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as UITableViewCell!
         
-        /* Set cell defaults */
+        //Build the cell contents
         cell.textLabel!.text = student.firstName + " " + student.lastName
-        cell.detailTextLabel!.text = student.userURLPath
+        
+        cell.imageView!.image = self.pinImage
         
         return cell
         
