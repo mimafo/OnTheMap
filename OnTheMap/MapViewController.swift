@@ -73,9 +73,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, StudentMapDelegate
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-            let app = UIApplication.sharedApplication()
             if let toOpen = view.annotation?.subtitle! {
-                app.openURL(NSURL(string: toOpen)!)
+                self.OpenURL(toOpen)
             }
         }
     }
@@ -83,7 +82,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, StudentMapDelegate
     //MARK: StudentMapDelegate methods
     func RefreshStudents() {
         
-        print("Not implemented yet!")
+        //Refresh the students list
+        self.loadStudents()
         
     }
     
@@ -113,6 +113,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, StudentMapDelegate
     }
     
     private func buildMapLocations() {
+        
+        //Clear out all the current annotations before displaying new ones
+        let allAnnotations = self.mapView.annotations
+        if allAnnotations.count > 0 {
+            self.mapView.removeAnnotations(allAnnotations)
+        }
         
         for student in students {
             

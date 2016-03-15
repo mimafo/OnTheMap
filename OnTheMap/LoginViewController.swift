@@ -99,6 +99,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //First, close the keyboard if applicable
         if let textField = self.currentField {
             textField.resignFirstResponder()
+            self.OpenURL(UdacityConstants.Udacity.SignupURL)
         }
     }
     

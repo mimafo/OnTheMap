@@ -69,10 +69,21 @@ class ListViewController: UITableViewController, StudentMapDelegate {
         
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        //Get the current student
+        let student = students[indexPath.row]
+        if !student.userURLPath.isEmpty {
+            self.OpenURL(student.userURLPath)
+        }
+        
+    }
+    
     //MARK: StudentMapDelegate methods
     func RefreshStudents() {
         
-        print("Not implemented yet!")
+        //Refresh the students list
+        self.loadStudents()
         
     }
     

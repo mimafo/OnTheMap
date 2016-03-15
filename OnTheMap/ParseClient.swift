@@ -45,6 +45,10 @@ class ParseClient: NetworkClient {
                 return
             }
             
+            //Clear the array before adding students
+            self.students.removeAll()
+            
+            //Loop throught he JSON list and add them to the student array
             for object in jsonList {
                 
                 let student = ParseStudent()
