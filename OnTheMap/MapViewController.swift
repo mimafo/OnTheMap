@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, StudentMapDelegate {
     
     //MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -22,12 +22,32 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return self.parseClient.students
     }
     
+    var mapTabBarController : MapTabBarController? {
+        if let tb = self.tabBarController as? MapTabBarController {
+            return tb
+        }
+        return nil
+    }
+    
     //MARK: View Controller methods
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
         
         //Initialize the View
         if students.count == 0 {
             loadStudents()
+        }
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        //Set self as the the student map delegate
+        if let tb = self.mapTabBarController {
+            tb.mapDelegate = self
         }
         
     }
@@ -58,6 +78,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 app.openURL(NSURL(string: toOpen)!)
             }
         }
+    }
+    
+    //MARK: StudentMapDelegate methods
+    func RefreshStudents() {
+        
+        print("Not implemented yet!")
+        
+    }
+    
+    func PinLocation() {
+        
+        print("Not implemented yet!")
+        
     }
     
     //MARK: Private methods

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UITableViewController {
+class ListViewController: UITableViewController, StudentMapDelegate {
     
     //MARK: Properties
     var parseClient : ParseClient {
@@ -16,6 +16,13 @@ class ListViewController: UITableViewController {
     }
     var students : [ParseStudent] {
         return self.parseClient.students
+    }
+    
+    var mapTabBarController : MapTabBarController? {
+        if let tb = self.tabBarController as? MapTabBarController {
+            return tb
+        }
+        return nil
     }
     
     let pinImage = UIImage(named: "Pin")
@@ -26,6 +33,17 @@ class ListViewController: UITableViewController {
         //Initialize the View
         if students.count == 0 {
             loadStudents()
+        }
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        //Set self as the the student map delegate
+        if let tb = self.mapTabBarController {
+            tb.mapDelegate = self
         }
         
     }
@@ -48,6 +66,19 @@ class ListViewController: UITableViewController {
         cell.imageView!.image = self.pinImage
         
         return cell
+        
+    }
+    
+    //MARK: StudentMapDelegate methods
+    func RefreshStudents() {
+        
+        print("Not implemented yet!")
+        
+    }
+    
+    func PinLocation() {
+        
+        print("Not implemented yet!")
         
     }
     

@@ -22,6 +22,9 @@
 		271ED2441C8CB150005A2DD7 /* ParseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271ED2431C8CB150005A2DD7 /* ParseStudent.swift */; };
 		278289E11C91107000982EA2 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E01C91107000982EA2 /* ParseClient.swift */; };
 		278289E41C91148100982EA2 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E31C91148100982EA2 /* NetworkClient.swift */; };
+		278289E61C979DAF00982EA2 /* MapTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E51C979DAF00982EA2 /* MapTabBarController.swift */; };
+		278289E81C979EE800982EA2 /* StudentMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E71C979EE800982EA2 /* StudentMapDelegate.swift */; };
+		278289EA1C97A09D00982EA2 /* UIViewController_OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E91C97A09D00982EA2 /* UIViewController_OpenURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		271ED2431C8CB150005A2DD7 /* ParseStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseStudent.swift; sourceTree = "<group>"; };
 		278289E01C91107000982EA2 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		278289E31C91148100982EA2 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		278289E51C979DAF00982EA2 /* MapTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTabBarController.swift; sourceTree = "<group>"; };
+		278289E71C979EE800982EA2 /* StudentMapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapDelegate.swift; sourceTree = "<group>"; };
+		278289E91C97A09D00982EA2 /* UIViewController_OpenURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController_OpenURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,9 @@
 				271ED22F1C893295005A2DD7 /* LoginViewController.swift */,
 				271ED23B1C8CAAEF005A2DD7 /* MapViewController.swift */,
 				271ED23D1C8CAB11005A2DD7 /* ListViewController.swift */,
+				278289E51C979DAF00982EA2 /* MapTabBarController.swift */,
+				278289E71C979EE800982EA2 /* StudentMapDelegate.swift */,
+				278289E91C97A09D00982EA2 /* UIViewController_OpenURL.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -205,13 +214,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				278289E61C979DAF00982EA2 /* MapTabBarController.swift in Sources */,
 				271ED23A1C8C804E005A2DD7 /* UdacityUser.swift in Sources */,
 				271ED2441C8CB150005A2DD7 /* ParseStudent.swift in Sources */,
 				271ED2381C89A698005A2DD7 /* UdacityClient.swift in Sources */,
 				271ED2301C893295005A2DD7 /* LoginViewController.swift in Sources */,
 				271ED2361C89A686005A2DD7 /* UdacityConstants.swift in Sources */,
+				278289EA1C97A09D00982EA2 /* UIViewController_OpenURL.swift in Sources */,
 				271ED2331C893765005A2DD7 /* GCDBlackBox.swift in Sources */,
 				271ED2421C8CAC5F005A2DD7 /* ParseConstants.swift in Sources */,
+				278289E81C979EE800982EA2 /* StudentMapDelegate.swift in Sources */,
 				271ED21E1C892D8C005A2DD7 /* AppDelegate.swift in Sources */,
 				271ED23E1C8CAB11005A2DD7 /* ListViewController.swift in Sources */,
 				271ED23C1C8CAAEF005A2DD7 /* MapViewController.swift in Sources */,

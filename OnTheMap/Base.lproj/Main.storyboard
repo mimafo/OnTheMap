@@ -6,6 +6,7 @@
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -172,14 +173,32 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3BH-ZT-VN6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="929"/>
+            <point key="canvasLocation" x="2436" y="939"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="9pQ-Qs-3bB">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1WX-Lp-IYg" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1WX-Lp-IYg" customClass="MapTabBarController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="On The Map" id="UlB-Gg-3pf"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="UlB-Gg-3pf">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Yv1-4M-S27">
+                            <connections>
+                                <action selector="logoutPressed:" destination="1WX-Lp-IYg" id="31y-2E-IcQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="i0j-sc-Sfx">
+                                <connections>
+                                    <action selector="refreshPressed:" destination="1WX-Lp-IYg" id="75U-70-0yC"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="Pin" id="xNl-IZ-zZI">
+                                <connections>
+                                    <action selector="pinPressed:" destination="1WX-Lp-IYg" id="98k-Gl-I0k"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="UFA-w4-UVM">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -213,5 +232,6 @@
     <resources>
         <image name="List" width="32" height="32"/>
         <image name="Map" width="32" height="32"/>
+        <image name="Pin" width="32" height="32"/>
     </resources>
 </document>
