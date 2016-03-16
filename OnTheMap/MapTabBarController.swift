@@ -12,6 +12,7 @@ class MapTabBarController: UITabBarController {
     
     //MARK: Properties
     var mapDelegate: StudentMapDelegate?
+    let informationPostingSegue = "InformationPostingSegue"
     
     //MARK: Actions
     @IBAction func logoutPressed(sender: UIBarButtonItem) {
@@ -20,9 +21,7 @@ class MapTabBarController: UITabBarController {
     
     @IBAction func pinPressed(sender: UIBarButtonItem) {
     
-        if let del = self.mapDelegate {
-            del.RefreshStudents()
-        }
+        self.performSegueWithIdentifier(informationPostingSegue, sender: self)
         
     }
     

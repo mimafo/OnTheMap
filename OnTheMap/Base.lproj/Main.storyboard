@@ -137,6 +137,63 @@
             </objects>
             <point key="canvasLocation" x="2436" y="154"/>
         </scene>
+        <!--Info Posting View Controller-->
+        <scene sceneID="hWJ-2b-yho">
+            <objects>
+                <viewController id="4PO-SX-arC" customClass="InfoPostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MsT-GI-v5h"/>
+                        <viewControllerLayoutGuide type="bottom" id="kbg-1J-pKO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GAf-5e-SMT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXZ-C6-N8d">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Information Posting" id="NLi-eU-jIM">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dxM-F2-w9w"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiq-1K-ZwU">
+                                <rect key="frame" x="20" y="97" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YrP-1C-X63">
+                                <rect key="frame" x="197" y="502" width="206" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="206" id="LDu-26-ZS1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Find on the Map">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iiq-1K-ZwU" firstAttribute="centerX" secondItem="YrP-1C-X63" secondAttribute="centerX" id="8MM-EW-bs7"/>
+                            <constraint firstItem="eXZ-C6-N8d" firstAttribute="leading" secondItem="GAf-5e-SMT" secondAttribute="leading" id="LYk-QH-wSQ"/>
+                            <constraint firstItem="YrP-1C-X63" firstAttribute="centerY" secondItem="GAf-5e-SMT" secondAttribute="centerY" constant="217" id="M9k-Cp-e2r"/>
+                            <constraint firstItem="iiq-1K-ZwU" firstAttribute="centerX" secondItem="eXZ-C6-N8d" secondAttribute="centerX" id="MFV-uI-ELk"/>
+                            <constraint firstItem="eXZ-C6-N8d" firstAttribute="top" secondItem="MsT-GI-v5h" secondAttribute="bottom" id="Oek-Q7-RPZ"/>
+                            <constraint firstItem="iiq-1K-ZwU" firstAttribute="top" secondItem="eXZ-C6-N8d" secondAttribute="bottom" constant="33" id="PAG-SU-OuF"/>
+                            <constraint firstItem="iiq-1K-ZwU" firstAttribute="leading" secondItem="GAf-5e-SMT" secondAttribute="leadingMargin" id="aW6-s0-fEd"/>
+                            <constraint firstItem="YrP-1C-X63" firstAttribute="centerX" secondItem="GAf-5e-SMT" secondAttribute="centerX" id="eyZ-9x-0yi"/>
+                            <constraint firstItem="eXZ-C6-N8d" firstAttribute="centerX" secondItem="GAf-5e-SMT" secondAttribute="centerX" id="fPG-cL-Djo"/>
+                            <constraint firstItem="kbg-1J-pKO" firstAttribute="top" secondItem="YrP-1C-X63" secondAttribute="bottom" constant="68" id="vEG-FM-jmq"/>
+                            <constraint firstItem="iiq-1K-ZwU" firstAttribute="top" secondItem="GAf-5e-SMT" secondAttribute="top" constant="97" id="xfd-Cd-Tvd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="82y-j9-c9v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1627" y="1333"/>
+        </scene>
         <!--List-->
         <scene sceneID="Jj5-CC-sCb">
             <objects>
@@ -206,6 +263,7 @@
                     <connections>
                         <segue destination="Y0z-9C-Lub" kind="relationship" relationship="viewControllers" id="6bT-xZ-YXm"/>
                         <segue destination="6ZX-Gv-FcA" kind="relationship" relationship="viewControllers" id="6ZB-vr-z9q"/>
+                        <segue destination="4PO-SX-arC" kind="presentation" identifier="InformationPostingSegue" id="pcu-Va-nOY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ALD-YW-awe" userLabel="First Responder" sceneMemberID="firstResponder"/>

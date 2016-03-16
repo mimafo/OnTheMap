@@ -25,6 +25,7 @@
 		278289E61C979DAF00982EA2 /* MapTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E51C979DAF00982EA2 /* MapTabBarController.swift */; };
 		278289E81C979EE800982EA2 /* StudentMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E71C979EE800982EA2 /* StudentMapDelegate.swift */; };
 		278289EA1C97A09D00982EA2 /* UIViewController_OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289E91C97A09D00982EA2 /* UIViewController_OpenURL.swift */; };
+		278289EC1C98FA7700982EA2 /* InfoPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278289EB1C98FA7700982EA2 /* InfoPostingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		278289E51C979DAF00982EA2 /* MapTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTabBarController.swift; sourceTree = "<group>"; };
 		278289E71C979EE800982EA2 /* StudentMapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapDelegate.swift; sourceTree = "<group>"; };
 		278289E91C97A09D00982EA2 /* UIViewController_OpenURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController_OpenURL.swift; sourceTree = "<group>"; };
+		278289EB1C98FA7700982EA2 /* InfoPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				278289E51C979DAF00982EA2 /* MapTabBarController.swift */,
 				278289E71C979EE800982EA2 /* StudentMapDelegate.swift */,
 				278289E91C97A09D00982EA2 /* UIViewController_OpenURL.swift */,
+				278289EB1C98FA7700982EA2 /* InfoPostingViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				278289EA1C97A09D00982EA2 /* UIViewController_OpenURL.swift in Sources */,
 				271ED2331C893765005A2DD7 /* GCDBlackBox.swift in Sources */,
 				271ED2421C8CAC5F005A2DD7 /* ParseConstants.swift in Sources */,
+				278289EC1C98FA7700982EA2 /* InfoPostingViewController.swift in Sources */,
 				278289E81C979EE800982EA2 /* StudentMapDelegate.swift in Sources */,
 				271ED21E1C892D8C005A2DD7 /* AppDelegate.swift in Sources */,
 				271ED23E1C8CAB11005A2DD7 /* ListViewController.swift in Sources */,
