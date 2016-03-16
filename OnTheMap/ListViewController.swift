@@ -48,6 +48,14 @@ class ListViewController: UITableViewController, StudentMapDelegate {
         
     }
     
+    //pulled from http://stackoverflow.com/questions/24468831/uitableview-goes-under-translucent-navigation-bar
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
+    }
+    
     //MARK: Table View Controller methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.students.count
