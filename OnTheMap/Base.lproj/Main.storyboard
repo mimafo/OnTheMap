@@ -153,7 +153,11 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="Information Posting" id="NLi-eU-jIM">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dxM-F2-w9w"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dxM-F2-w9w">
+                                            <connections>
+                                                <action selector="cancelPressed:" destination="4PO-SX-arC" id="kvo-QD-zFV"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -163,32 +167,60 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YrP-1C-X63">
-                                <rect key="frame" x="197" y="502" width="206" height="30"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Your Location Here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WBl-w0-R6e">
+                                <rect key="frame" x="20" y="126" width="560" height="76"/>
+                                <color key="backgroundColor" red="0.30980392156862746" green="0.52941176470588236" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="206" id="LDu-26-ZS1"/>
+                                    <constraint firstAttribute="height" constant="76" id="whR-Hc-6wm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Find on the Map">
-                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNl-fD-bRZ">
+                                <rect key="frame" x="20" y="210" width="560" height="375"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g58-bI-pFm">
+                                <rect key="frame" x="200" y="550" width="201" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="En1-08-d8A"/>
+                                    <constraint firstAttribute="width" constant="201" id="oiK-Fe-3LG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.30980392159999998" green="0.52941176469999995" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="actionButtonPressed:" destination="4PO-SX-arC" eventType="touchUpInside" id="QiE-pR-asj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iiq-1K-ZwU" firstAttribute="centerX" secondItem="YrP-1C-X63" secondAttribute="centerX" id="8MM-EW-bs7"/>
+                            <constraint firstItem="jNl-fD-bRZ" firstAttribute="leading" secondItem="WBl-w0-R6e" secondAttribute="leading" id="66F-eV-tP5"/>
+                            <constraint firstItem="jNl-fD-bRZ" firstAttribute="trailing" secondItem="WBl-w0-R6e" secondAttribute="trailing" id="8Fd-I5-hb4"/>
+                            <constraint firstItem="WBl-w0-R6e" firstAttribute="top" secondItem="iiq-1K-ZwU" secondAttribute="bottom" constant="8" symbolic="YES" id="CS2-4I-8RX"/>
+                            <constraint firstAttribute="bottom" secondItem="g58-bI-pFm" secondAttribute="bottom" constant="20" symbolic="YES" id="FCQ-rv-Khr"/>
+                            <constraint firstItem="jNl-fD-bRZ" firstAttribute="top" secondItem="WBl-w0-R6e" secondAttribute="bottom" constant="8" symbolic="YES" id="Jl6-pw-iLj"/>
                             <constraint firstItem="eXZ-C6-N8d" firstAttribute="leading" secondItem="GAf-5e-SMT" secondAttribute="leading" id="LYk-QH-wSQ"/>
-                            <constraint firstItem="YrP-1C-X63" firstAttribute="centerY" secondItem="GAf-5e-SMT" secondAttribute="centerY" constant="217" id="M9k-Cp-e2r"/>
                             <constraint firstItem="iiq-1K-ZwU" firstAttribute="centerX" secondItem="eXZ-C6-N8d" secondAttribute="centerX" id="MFV-uI-ELk"/>
                             <constraint firstItem="eXZ-C6-N8d" firstAttribute="top" secondItem="MsT-GI-v5h" secondAttribute="bottom" id="Oek-Q7-RPZ"/>
                             <constraint firstItem="iiq-1K-ZwU" firstAttribute="top" secondItem="eXZ-C6-N8d" secondAttribute="bottom" constant="33" id="PAG-SU-OuF"/>
+                            <constraint firstItem="WBl-w0-R6e" firstAttribute="leading" secondItem="iiq-1K-ZwU" secondAttribute="leading" id="W57-1A-36u"/>
                             <constraint firstItem="iiq-1K-ZwU" firstAttribute="leading" secondItem="GAf-5e-SMT" secondAttribute="leadingMargin" id="aW6-s0-fEd"/>
-                            <constraint firstItem="YrP-1C-X63" firstAttribute="centerX" secondItem="GAf-5e-SMT" secondAttribute="centerX" id="eyZ-9x-0yi"/>
+                            <constraint firstItem="WBl-w0-R6e" firstAttribute="trailing" secondItem="iiq-1K-ZwU" secondAttribute="trailing" id="eDZ-bi-RwC"/>
                             <constraint firstItem="eXZ-C6-N8d" firstAttribute="centerX" secondItem="GAf-5e-SMT" secondAttribute="centerX" id="fPG-cL-Djo"/>
-                            <constraint firstItem="kbg-1J-pKO" firstAttribute="top" secondItem="YrP-1C-X63" secondAttribute="bottom" constant="68" id="vEG-FM-jmq"/>
+                            <constraint firstItem="kbg-1J-pKO" firstAttribute="top" secondItem="jNl-fD-bRZ" secondAttribute="bottom" constant="15" id="hUS-iA-S1g"/>
                             <constraint firstItem="iiq-1K-ZwU" firstAttribute="top" secondItem="GAf-5e-SMT" secondAttribute="top" constant="97" id="xfd-Cd-Tvd"/>
+                            <constraint firstItem="jNl-fD-bRZ" firstAttribute="centerX" secondItem="g58-bI-pFm" secondAttribute="centerX" id="yDd-s4-mtJ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="actionButton" destination="g58-bI-pFm" id="4Hj-Pz-00v"/>
+                        <outlet property="locationLabel" destination="iiq-1K-ZwU" id="9iA-CV-sgc"/>
+                        <outlet property="locationTextView" destination="WBl-w0-R6e" id="1I5-b6-Jmd"/>
+                        <outlet property="mapView" destination="jNl-fD-bRZ" id="W8h-UU-11n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82y-j9-c9v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
