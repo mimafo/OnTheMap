@@ -24,7 +24,7 @@ enum LabelText: String {
     case Submit = "Submit"
 }
 
-class InfoPostingViewController: UIViewController {
+class InfoPostingViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: Outlets
     @IBOutlet weak var locationLabel: UILabel!
@@ -35,6 +35,8 @@ class InfoPostingViewController: UIViewController {
     
     //MARK: Properties
     var viewState = ViewState.PostingLocation
+    var currentField: UITextField?
+    var student = ParseStudent()
     
     //MARK: View Controller Methods
     override func viewDidLoad() {
@@ -43,6 +45,48 @@ class InfoPostingViewController: UIViewController {
         
         //Initialization Code
         self.changeView()
+        
+        //Set values for student
+        
+    }
+    
+    //MARK: UITextDelegate Methods
+    func textFieldDidBeginEditing(textField: UITextField) {
+        
+        //Set the currentTextField appropriately
+        self.currentField = textField
+        
+        //Remove default instructional text on entry
+        if self.viewState == .PostingLocation && textField.text == LabelText.Location.rawValue ||
+           self.viewState == .SelectLocation && textField.text == LabelText.Link.rawValue {
+            textField.text = ""
+        }
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //When return is pressed, dismiss the keyboard
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        //Unset the currentTextField
+        self.currentField = nil
+        
+        //Add back instructional text on exit if the textField is blank
+        if textField.text == nil || textField.text!.isEmpty {
+            switch viewState {
+            case .PostingLocation:
+                textField.text = LabelText.Location.rawValue
+            case .SelectLocation:
+                textField.text = LabelText.Link.rawValue
+            default:
+                print("This condition should never be met")
+            }
+        }
+        
         
     }
     
@@ -53,11 +97,40 @@ class InfoPostingViewController: UIViewController {
     }
     
     @IBAction func actionButtonPressed(sender: UIButton) {
-        print("Not implemented yet!")
         
-        //Testing Code
-        viewState = (viewState == .PostingLocation) ? .SelectLocation : .PostingLocation
-        changeView()
+        if let textString = self.locationTextView.text {
+            if !textString.isEmpty {
+                if viewState == .PostingLocation {
+                    //Find the location for the text field
+                    let geoCoder = CLGeocoder()
+                    geoCoder.geocodeAddressString(textString, completionHandler: { (placemarks, error) -> Void in
+                        if let geoError = error {
+                            print(geoError.localizedDescription)
+                            return
+                        } else {
+                            if let places = placemarks {
+                                for place in places {
+                                    if let location = place.location {
+                                        self.student.latitude = location.coordinate.latitude
+                                        self.student.longitude = location.coordinate.longitude
+                                        performUIUpdatesOnMain {
+                                            self.transitionToLocation(location.coordinate)
+                                        }
+                                        return
+                                    }
+                                }
+                            }
+                            print("Error processing location")
+                        }
+                
+                    })
+                    
+                } else if viewState == .SelectLocation {
+                    //Post the data
+                }
+            }
+        }
+
     }
     
     //MARK: Private functions
@@ -84,5 +157,24 @@ class InfoPostingViewController: UIViewController {
             print("Not implemented yet!")
             
         }
+    }
+        
+    private func transitionToLocation(coordinate: CLLocationCoordinate2D) {
+        
+        viewState = .SelectLocation
+        self.mapView.region = regionForCoordinate(coordinate)
+        changeView()
+        
+        
+    }
+    
+    private func regionForCoordinate(coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
+    
+        var region = MKCoordinateRegion()
+        region.center = coordinate
+        region.span.latitudeDelta = 0.008388
+        region.span.longitudeDelta = 0.016243
+        return region
+    
     }
 }
