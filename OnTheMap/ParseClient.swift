@@ -25,16 +25,17 @@ class ParseClient: NetworkClient {
             
             func unsuccessful() {
                 studentCompletionHandler(success: false, errorMessage: genericUserMessage)
-                return
             }
             
             if let error = error {
                 print("\(error)")
                 unsuccessful()
+                return
             }
             
             if result == nil {
                 unsuccessful()
+                return
             }
             
             print("\(result)")
@@ -85,6 +86,40 @@ class ParseClient: NetworkClient {
         }
     }
     
+    func setStudentLocation(student: ParseStudent, mapString: String, studentCompletionHandler: (success: Bool, errorMessage: String?) -> Void) -> Void {
+     
+        let genericUserMessage = "Posting student location failed"
+        self.postStudentLocation(student, mapString: mapString) { (result, error) -> Void in
+            
+            func unsuccessful() {
+                studentCompletionHandler(success: false, errorMessage: genericUserMessage)
+            }
+            
+            if let error = error {
+                print("\(error)")
+                unsuccessful()
+                return
+            }
+            
+            if result == nil {
+                unsuccessful()
+                return
+            }
+            
+            print("\(result)")
+            
+            //Remove the last student for the list and insert the new one at the beginning
+            if self.students.count == 100 {
+                self.students.removeLast()
+            }
+            self.students.insert(student, atIndex: 0)
+            
+            studentCompletionHandler(success: true, errorMessage: nil)
+            
+        }
+        
+    }
+    
     //MARK: Build request endpoints
     private func getStudentLocation(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
@@ -101,8 +136,33 @@ class ParseClient: NetworkClient {
         
     }
     
+    private func postStudentLocation(student: ParseStudent, mapString: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        let request = NSMutableURLRequest(URL: self.buildURLPath([ParseConstants.Parse.StudentLocationPath],queryList: nil))
+        
+        //Set request values for POST
+        request.HTTPMethod = ParseConstants.ParseMethods.Post
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(ParseConstants.ParseHeaderValues.ApiKey, forHTTPHeaderField: ParseConstants.ParseHeaderKeys.ApiKey)
+        request.addValue(ParseConstants.ParseHeaderValues.ApplicationID, forHTTPHeaderField: ParseConstants.ParseHeaderKeys.ApplicationID)
+        
+        let jsonString = "{\"\(ParseConstants.ParseObjectKeys.UniqueKey)\": \"\(student.accountKey)\", " +
+                          "\"\(ParseConstants.ParseObjectKeys.FirstName)\": \"\(student.firstName)\", " +
+                          "\"\(ParseConstants.ParseObjectKeys.LastName)\": \"\(student.lastName)\", " +
+                          "\"\(ParseConstants.ParseObjectKeys.MapString)\": \"\(mapString)\", " +
+                          "\"\(ParseConstants.ParseObjectKeys.MediaURL)\": \"\(student.userURLPath)\", " +
+                          "\"\(ParseConstants.ParseObjectKeys.Latitude)\": \(student.latitude), " +
+                          "\"\(ParseConstants.ParseObjectKeys.Longitude)\": \(student.longitude)}"
+        
+        print(jsonString)
+        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
+        return self.executeRequest(request, domain: "postStudentLocation", completionHandler: completionHandler)
+        
+    }
+    
     //MARK: Convenience Methods
-    private func buildURLPath(pathList: [String], queryList: [String:String]) -> NSURL {
+    private func buildURLPath(pathList: [String], queryList: [String:String]?) -> NSURL {
         
         return self.buildURLPath(ParseConstants.Parse.ApiScheme, host: ParseConstants.Parse.ApiHost, path: ParseConstants.Parse.ApiPath,pathList: pathList, queryList: queryList)
         

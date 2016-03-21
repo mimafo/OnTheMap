@@ -37,6 +37,14 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
     var viewState = ViewState.PostingLocation
     var currentField: UITextField?
     var student = ParseStudent()
+    var parseClient : ParseClient {
+        return ParseClient.sharedInstance()
+    }
+    var udacityUser : UdacityUser {
+        return UdacityClient.sharedInstance().udacityUser
+    }
+    var mapString = ""
+    var coordinates: CLLocationCoordinate2D?
     
     //MARK: View Controller Methods
     override func viewDidLoad() {
@@ -116,6 +124,7 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
                                         performUIUpdatesOnMain {
                                             self.transitionToLocation(location.coordinate)
                                         }
+                                        self.mapString = textString
                                         return
                                     }
                                 }
@@ -127,6 +136,32 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
                     
                 } else if viewState == .SelectLocation {
                     //Post the data
+                    if let url = NSURL(string: textString) {
+                        
+                        //Build the student object
+                        self.student.accountKey = self.udacityUser.accountKey
+                        self.student.firstName = self.udacityUser.firstName
+                        self.student.lastName = self.udacityUser.lastName
+                        self.student.latitude = self.coordinates!.latitude
+                        self.student.longitude = self.coordinates!.longitude
+                        self.student.userURLPath = url.absoluteString
+                        
+                        //Post the student data
+                        parseClient.setStudentLocation(student, mapString: self.mapString, studentCompletionHandler: { (success, errorMessage) -> Void in
+                            
+                            if success {
+                                performUIUpdatesOnMain{
+                                    self.dismissViewControllerAnimated(true, completion: nil)
+                                }
+                            } else {
+                                print(errorMessage!)
+                            }
+                            
+                        })
+                        
+                    } else {
+                        print("The entered string is not a proper URL")
+                    }
                 }
             }
         }
@@ -164,7 +199,10 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
         viewState = .SelectLocation
         self.mapView.region = regionForCoordinate(coordinate)
         changeView()
-        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        self.mapView.addAnnotation(annotation)
+        self.coordinates = coordinate
         
     }
     
@@ -177,4 +215,5 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
         return region
     
     }
+
 }
