@@ -47,6 +47,7 @@ struct ParseConstants {
     
     // MARK: Parse Object Keys
     struct ParseObjectKeys {
+        static let ObjectID = "objectId"
         static let UniqueKey = "uniqueKey"
         static let FirstName = "firstName"
         static let LastName = "lastName"

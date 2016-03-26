@@ -8,19 +8,18 @@
 
 import Foundation
 
-class UdacityUser {
+struct UdacityUser {
     
-    //Store account data
-    var accountKey = ""
-    var registered = false
     
     //Store session data
     var expiration = ""
     var sessionID = ""
     
-    //User Info
-    var firstName = ""
-    var lastName = ""
-    var userURL = ""
+    //Student Information
+    var student = StudentInformation()
+    
+    mutating func setStudent(student: StudentInformation) {
+        self.student = student
+    }
     
 }

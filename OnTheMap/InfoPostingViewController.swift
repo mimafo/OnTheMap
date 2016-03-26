@@ -36,12 +36,10 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
     //MARK: Properties
     var viewState = ViewState.PostingLocation
     var currentField: UITextField?
-    var student = ParseStudent()
+    var student = UdacityClient.sharedInstance().udacityUser.student
+
     var parseClient : ParseClient {
         return ParseClient.sharedInstance()
-    }
-    var udacityUser : UdacityUser {
-        return UdacityClient.sharedInstance().udacityUser
     }
     var mapString = ""
     var coordinates: CLLocationCoordinate2D?
@@ -138,12 +136,7 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
                     //Post the data
                     if let url = NSURL(string: textString) {
                         
-                        //Build the student object
-                        self.student.accountKey = self.udacityUser.accountKey
-                        self.student.firstName = self.udacityUser.firstName
-                        self.student.lastName = self.udacityUser.lastName
-                        self.student.latitude = self.coordinates!.latitude
-                        self.student.longitude = self.coordinates!.longitude
+                        //Set the student URL path
                         self.student.userURLPath = url.absoluteString
                         
                         //Post the student data

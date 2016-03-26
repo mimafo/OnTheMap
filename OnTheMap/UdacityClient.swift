@@ -45,10 +45,7 @@ class UdacityClient : NetworkClient {
             
             if let accountInfo = results[UdacityConstants.UdacityResponseKeys.Account] as? [String: AnyObject] {
                 
-                self.udacityUser.accountKey = accountInfo[UdacityConstants.UdacityResponseKeys.Key] as! String
-                if let registered = accountInfo[UdacityConstants.UdacityResponseKeys.Registered] as? Int {
-                    self.udacityUser.registered = (registered == 1)
-                }
+                self.udacityUser.student.accountKey = accountInfo[UdacityConstants.UdacityResponseKeys.Key] as! String
                 
             } else {
                 loginCompletionHandler(success: false, errorMessage: genericLoginMessage)
@@ -91,19 +88,19 @@ class UdacityClient : NetworkClient {
             }
             
             if let firstName = userInfo[UdacityConstants.UdacityResponseKeys.FirstName] as? String {
-                self.udacityUser.firstName = firstName
+                self.udacityUser.student.firstName = firstName
             } else {
                 unsuccessful()
             }
             
             if let lastName = userInfo[UdacityConstants.UdacityResponseKeys.LastName] as? String {
-                self.udacityUser.lastName = lastName
+                self.udacityUser.student.lastName = lastName
             } else {
                 unsuccessful()
             }
             
             if let linkedInURL = userInfo[UdacityConstants.UdacityResponseKeys.LinkedInURL] as? String {
-                self.udacityUser.userURL = linkedInURL
+                self.udacityUser.student.userURLPath = linkedInURL
             }
 
             userInfoCompletionHandler(success: true, errorMessage: nil)
@@ -176,7 +173,7 @@ class UdacityClient : NetworkClient {
     
     private func getUserInfo(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
      
-        let request = NSMutableURLRequest(URL: self.buildURLPath([UdacityConstants.Udacity.UserPath, UdacityConstants.Udacity.Slash, self.udacityUser.accountKey]))
+        let request = NSMutableURLRequest(URL: self.buildURLPath([UdacityConstants.Udacity.UserPath, UdacityConstants.Udacity.Slash, self.udacityUser.student.accountKey]))
         request.HTTPMethod = UdacityConstants.UdacityMethods.Get
         
         return self.executeRequest(request, domain: "getUserInfo", completionHandler: completionHandler)

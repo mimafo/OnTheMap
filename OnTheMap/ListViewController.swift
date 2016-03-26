@@ -14,7 +14,7 @@ class ListViewController: UITableViewController, StudentMapDelegate {
     var parseClient : ParseClient {
         return ParseClient.sharedInstance()
     }
-    var students : [ParseStudent] {
+    var students : [StudentInformation] {
         return self.parseClient.students
     }
     

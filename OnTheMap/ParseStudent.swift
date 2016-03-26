@@ -14,6 +14,7 @@ class ParseStudent {
     var firstName = ""
     var lastName = ""
     var accountKey = ""
+    var objectId = ""
     
     //URL Info
     var userURLPath = ""

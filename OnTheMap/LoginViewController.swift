@@ -63,7 +63,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         if self.emailField.text!.isEmpty || self.passwordField.text!.isEmpty {
-            self.displayMessage("Email and/or password is missing")
+            self.displayMessage("Invalid Input", message: "Email and/or password is missing")
             return
         }
         
@@ -72,12 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             if success {
                 
-                self.displayMessage("Session ID: \(self.udacityClient.udacityUser.sessionID)")
-                self.displayMessage("Key: \(self.udacityClient.udacityUser.accountKey)")
-                
-                self.displayMessage("First Name: \(self.udacityClient.udacityUser.firstName)")
-                self.displayMessage("Last Name: \(self.udacityClient.udacityUser.lastName)")
-                self.displayMessage("URL: \(self.udacityClient.udacityUser.userURL)")
+                self.debugMessages()
                 
                 performUIUpdatesOnMain {
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MainNavigationController") as! UINavigationController
@@ -86,8 +81,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
             } else {
                 
-                self.displayMessage(errorMessage!)
-                
+                self.displayMessage("LoginFailed", message: errorMessage!)
+
             }
             
         }
@@ -104,8 +99,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     //Mark: Internal Methods
-    private func displayMessage(message: String) {
+    private func displayMessage(title: String, message: String) {
+        let alert = UIAlertController.simpleAlertController(title, message: message)
         print(message)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func debugMessages() {
+        
+        print("Session ID: \(self.udacityClient.udacityUser.sessionID)")
+        print("Key: \(self.udacityClient.udacityUser.student.accountKey)")
+        
+        print("First Name: \(self.udacityClient.udacityUser.student.firstName)")
+        print("Last Name: \(self.udacityClient.udacityUser.student.lastName)")
+        print("URL: \(self.udacityClient.udacityUser.student.userURLPath)")
+        
     }
 
 

@@ -11,7 +11,8 @@ import Foundation
 class ParseClient: NetworkClient {
     
     //MARK: Properties
-    lazy var students = [ParseStudent]()
+    lazy var students = [StudentInformation]()
+    var udacityUser = UdacityClient.sharedInstance().udacityUser
     
     //MARK: Constants
     let maxCount = "100"
@@ -52,33 +53,14 @@ class ParseClient: NetworkClient {
             //Loop throught he JSON list and add them to the student array
             for object in jsonList {
                 
-                let student = ParseStudent()
-                if let firstName = object[ParseConstants.ParseObjectKeys.FirstName] as? String {
-                    student.firstName = firstName
-                }
-                
-                if let lastName = object[ParseConstants.ParseObjectKeys.LastName] as? String {
-                    student.lastName = lastName
-                }
-                
-                if let uniqueKey = object[ParseConstants.ParseObjectKeys.UniqueKey] as? String {
-                    student.accountKey = uniqueKey
-                }
-                
-                if let latitude = object[ParseConstants.ParseObjectKeys.Latitude] as? Double {
-                    student.latitude = latitude
-                }
-                
-                if let longitude = object[ParseConstants.ParseObjectKeys.Longitude] as? Double {
-                    student.longitude = longitude
-                }
-                
-                if let url = object[ParseConstants.ParseObjectKeys.MediaURL] as? String {
-                    student.userURLPath = url
-                }
-                
-                self.students.append(student)
-                
+                if let dic = object as? [String : AnyObject] {
+                    let student = StudentInformation(dic: dic)
+                    self.students.append(student)
+                    //Check if the student is the Udacity User
+                    if student.accountKey == self.udacityUser.student.accountKey {
+                        self.udacityUser.setStudent(student)
+                    }
+                }     
             }
             
             studentCompletionHandler(success: true, errorMessage: nil)
@@ -86,7 +68,7 @@ class ParseClient: NetworkClient {
         }
     }
     
-    func setStudentLocation(student: ParseStudent, mapString: String, studentCompletionHandler: (success: Bool, errorMessage: String?) -> Void) -> Void {
+    func setStudentLocation(student: StudentInformation, mapString: String, studentCompletionHandler: (success: Bool, errorMessage: String?) -> Void) -> Void {
      
         let genericUserMessage = "Posting student location failed"
         self.postStudentLocation(student, mapString: mapString) { (result, error) -> Void in
@@ -136,12 +118,19 @@ class ParseClient: NetworkClient {
         
     }
     
-    private func postStudentLocation(student: ParseStudent, mapString: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    private func postStudentLocation(student: StudentInformation, mapString: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
+        var pathList = [String]()
+        pathList.append(ParseConstants.Parse.StudentLocationPath)
+        if student.isOnTheMap {
+            pathList.append(ParseConstants.Parse.Slash)
+            pathList.append(student.objectId)
+            
+        }
         let request = NSMutableURLRequest(URL: self.buildURLPath([ParseConstants.Parse.StudentLocationPath],queryList: nil))
         
         //Set request values for POST
-        request.HTTPMethod = ParseConstants.ParseMethods.Post
+        request.HTTPMethod = (student.isOnTheMap) ? ParseConstants.ParseMethods.Put : ParseConstants.ParseMethods.Post
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(ParseConstants.ParseHeaderValues.ApiKey, forHTTPHeaderField: ParseConstants.ParseHeaderKeys.ApiKey)
