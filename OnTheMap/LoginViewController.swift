@@ -67,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        //TODO: Make network call...
+        //Make network call...
         udacityClient.doUserLogin(self.emailField.text!, password: self.passwordField.text!) { (success, errorMessage) -> Void in
             
             if success {
@@ -76,7 +76,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 performUIUpdatesOnMain {
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MainNavigationController") as! UINavigationController
-                    self.presentViewController(controller, animated: true, completion: nil)
+                    self.presentViewController(controller, animated: true, completion: {
+                            self.logout()
+                        
+                    })
                 }
                 
             } else {
@@ -113,6 +116,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         print("First Name: \(self.udacityClient.udacityUser.student.firstName)")
         print("Last Name: \(self.udacityClient.udacityUser.student.lastName)")
         print("URL: \(self.udacityClient.udacityUser.student.userURLPath)")
+        
+    }
+    
+    private func logout() {
+        
+        //Clear login credentials and create a new Udacity User
+        self.udacityClient.clearClient()
+        self.emailField.text = ""
+        self.passwordField.text = ""
         
     }
 

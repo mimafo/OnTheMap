@@ -102,6 +102,11 @@ class ParseClient: NetworkClient {
         
     }
     
+    func clearClient() {
+        //Create a new array of students
+        students = [StudentInformation]()
+    }
+    
     //MARK: Build request endpoints
     private func getStudentLocation(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         

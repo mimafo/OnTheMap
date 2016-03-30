@@ -11,7 +11,7 @@ import Foundation
 class UdacityClient : NetworkClient {
     
     //MARK: Properties
-    var udacityUser = UdacityUser()
+    lazy var udacityUser = UdacityUser()
     
     //MARK: Initializer
     override init() {
@@ -22,13 +22,16 @@ class UdacityClient : NetworkClient {
     //MARK: High level action methods
     func doUserLogin(username: String, password: String, loginCompletionHandler: (success: Bool, errorMessage: String?) -> Void) {
         
-        let genericLoginMessage = "Login failed"
+        var loginMessage = "Login failed"
         
         self.postUserLogin(username, password: password) { (results, error) -> Void in
             
             if let error = error {
                 print("\(error)")
-                loginCompletionHandler(success: false, errorMessage: genericLoginMessage)
+                if let message = error.userInfo[NetworkClient.ErrorCatagoryKey] as? String {
+                    loginMessage = message
+                }
+                loginCompletionHandler(success: false, errorMessage: loginMessage)
                 return
             }
             
@@ -39,7 +42,7 @@ class UdacityClient : NetworkClient {
                 self.udacityUser.sessionID = sessionInfo[UdacityConstants.UdacityResponseKeys.ID]!
                 
             } else {
-                loginCompletionHandler(success: false, errorMessage: genericLoginMessage)
+                loginCompletionHandler(success: false, errorMessage: ErrorCatagory.MalformedResponse.rawValue)
                 return
             }
             
@@ -48,7 +51,7 @@ class UdacityClient : NetworkClient {
                 self.udacityUser.student.accountKey = accountInfo[UdacityConstants.UdacityResponseKeys.Key] as! String
                 
             } else {
-                loginCompletionHandler(success: false, errorMessage: genericLoginMessage)
+                loginCompletionHandler(success: false, errorMessage: ErrorCatagory.MalformedResponse.rawValue)
                 return
             }
             
@@ -91,12 +94,14 @@ class UdacityClient : NetworkClient {
                 self.udacityUser.student.firstName = firstName
             } else {
                 unsuccessful()
+                return
             }
             
             if let lastName = userInfo[UdacityConstants.UdacityResponseKeys.LastName] as? String {
                 self.udacityUser.student.lastName = lastName
             } else {
                 unsuccessful()
+                return
             }
             
             if let linkedInURL = userInfo[UdacityConstants.UdacityResponseKeys.LinkedInURL] as? String {
@@ -111,7 +116,7 @@ class UdacityClient : NetworkClient {
     //MARK: High level action methods
     func doUserLogout(username: String, password: String, logoutCompletionHandler: (success: Bool, errorMessage: String?) -> Void) {
      
-        let genericLogoutMessage = "Logout failed"
+        var logoutMessage = "Logout failed"
         
         self.deleteUserSession { (result, error) -> Void in
             
@@ -120,7 +125,10 @@ class UdacityClient : NetworkClient {
             
             if let error = error {
                 print("\(error)")
-                logoutCompletionHandler(success: false, errorMessage: genericLogoutMessage)
+                if let message = error.userInfo[NetworkClient.ErrorCatagoryKey] as? String {
+                    logoutMessage = message
+                }
+                logoutCompletionHandler(success: false, errorMessage: logoutMessage)
                 return
             }
             
@@ -128,6 +136,11 @@ class UdacityClient : NetworkClient {
             
         }
         
+    }
+    
+    func clearClient() {
+        //Create a new Udacity User
+        udacityUser = UdacityUser()
     }
     
     //MARK: Build request endpoints

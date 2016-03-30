@@ -16,7 +16,11 @@ class MapTabBarController: UITabBarController {
     
     //MARK: Actions
     @IBAction func logoutPressed(sender: UIBarButtonItem) {
-        print("Not implemented yet!")
+        if let nvc = self.navigationController {
+            nvc.dismissViewControllerAnimated(true, completion: {
+                ParseClient.sharedInstance().clearClient()
+            })
+        }
     }
     
     @IBAction func pinPressed(sender: UIBarButtonItem) {
