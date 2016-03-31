@@ -106,7 +106,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, StudentMapDelegate
                 if success {
                     self.buildMapLocations()
                 } else {
-                    self.displayMessage("Loading Students Failed",message: errorMessage!)
+                    self.displayErrorMessage("Loading Students Failed",message: errorMessage!)
                     
                 }
                 
@@ -137,13 +137,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, StudentMapDelegate
             
         }
         
-    }
-    
-    //Mark: Internal Methods
-    private func displayMessage(title: String, message: String) {
-        let alert = UIAlertController.simpleAlertController(title, message: message)
-        print(message)
-        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }

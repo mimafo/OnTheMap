@@ -29,6 +29,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.passwordField.delegate = self
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        self.emailField.text = ""
+        self.passwordField.text = ""
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,33 +70,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         if self.emailField.text!.isEmpty || self.passwordField.text!.isEmpty {
-            self.displayMessage("Invalid Input", message: "Email and/or password is missing")
+            self.displayErrorMessage("Invalid Input", message: "Email and/or password is missing")
             return
         }
         
         //Make network call...
         udacityClient.doUserLogin(self.emailField.text!, password: self.passwordField.text!) { (success, errorMessage) -> Void in
-            
-            if success {
-                
-                self.debugMessages()
-                
-                performUIUpdatesOnMain {
+            performUIUpdatesOnMain {
+                if success {
+                    
+                    self.debugMessages()
+                    
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MainNavigationController") as! UINavigationController
-                    self.presentViewController(controller, animated: true, completion: {
-                            self.logout()
-                        
-                    })
-                }
-                
-            } else {
-                
-                self.displayMessage("LoginFailed", message: errorMessage!)
+                    self.presentViewController(controller, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    self.displayErrorMessage("LoginFailed", message: errorMessage!)
 
+                }
             }
             
         }
-        
         
     }
     
@@ -97,17 +99,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //First, close the keyboard if applicable
         if let textField = self.currentField {
             textField.resignFirstResponder()
-            self.OpenURL(UdacityConstants.Udacity.SignupURL)
         }
+        self.OpenURL(UdacityConstants.Udacity.SignupURL)
     }
     
     //Mark: Internal Methods
-    private func displayMessage(title: String, message: String) {
-        let alert = UIAlertController.simpleAlertController(title, message: message)
-        print(message)
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
     private func debugMessages() {
         
         print("Session ID: \(self.udacityClient.udacityUser.sessionID)")
@@ -118,15 +114,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         print("URL: \(self.udacityClient.udacityUser.student.userURLPath)")
         
     }
-    
-    private func logout() {
-        
-        //Clear login credentials and create a new Udacity User
-        self.udacityClient.clearClient()
-        self.emailField.text = ""
-        self.passwordField.text = ""
-        
-    }
-
 
 }

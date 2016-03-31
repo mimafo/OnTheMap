@@ -111,7 +111,7 @@ class ListViewController: UITableViewController, StudentMapDelegate {
                 if success {
                     self.tableView.reloadData()
                 } else {
-                    self.displayMessage("Load Students Failed",message: errorMessage!)
+                    self.displayErrorMessage("Load Students Failed",message: errorMessage!)
                 }
                 
             }
@@ -120,13 +120,5 @@ class ListViewController: UITableViewController, StudentMapDelegate {
         
         
     }
-    
-    private func displayMessage(title: String, message: String) {
-        let alert = UIAlertController.simpleAlertController(title, message: message)
-        print(message)
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    
 
 }

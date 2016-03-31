@@ -21,4 +21,10 @@ extension UIViewController {
             app.openURL(url!)
         }
     }
+    
+    func displayErrorMessage(title: String, message: String) {
+        let alert = UIAlertController.simpleAlertController(title, message: message)
+        print("Title: \(title)\nMessage: \(message)")
+        presentViewController(alert, animated: true, completion: nil)
+    }
 }

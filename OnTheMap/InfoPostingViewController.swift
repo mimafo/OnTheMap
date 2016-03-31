@@ -37,6 +37,7 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
     var viewState = ViewState.PostingLocation
     var currentField: UITextField?
     var student = UdacityClient.sharedInstance().udacityUser.student
+    var addMode = true
 
     var parseClient : ParseClient {
         return ParseClient.sharedInstance()
@@ -53,6 +54,19 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
         self.changeView()
         
         //Set values for student
+        
+    }
+    override func viewDidAppear(animated: Bool) {
+        
+        if student.isOnTheMap {
+            let alert = UIAlertController.simpleAlertController("User Exists", message: "Update your location?")
+            alert.addCancelAction({ (action) -> Void in
+               self.dismissViewControllerAnimated(true, completion: nil)
+            })
+            presentViewController(alert, animated: true, completion: nil)
+            addMode = false
+            
+        }
         
     }
     
@@ -127,7 +141,10 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
                                     }
                                 }
                             }
-                            print("Error processing location")
+                            performUIUpdatesOnMain({ () -> Void in
+                                self.displayErrorMessage("Error Processing Location",
+                                    message: "Cannot determine your location")
+                            })
                         }
                 
                     })
@@ -142,18 +159,22 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
                         //Post the student data
                         parseClient.setStudentLocation(student, mapString: self.mapString, studentCompletionHandler: { (success, errorMessage) -> Void in
                             
-                            if success {
-                                performUIUpdatesOnMain{
+                            performUIUpdatesOnMain{
+                                if success {
                                     self.dismissViewControllerAnimated(true, completion: nil)
+                                } else {
+                                    self.displayErrorMessage("Update Error", message: errorMessage!)
                                 }
-                            } else {
-                                print(errorMessage!)
                             }
                             
                         })
                         
                     } else {
-                        print("The entered string is not a proper URL")
+                        performUIUpdatesOnMain({ () -> Void in
+                          self.displayErrorMessage("Invalid Input", message: "The entered string is not a proper URL")
+                            
+                        })
+
                     }
                 }
             }
@@ -179,7 +200,11 @@ class InfoPostingViewController: UIViewController, UITextFieldDelegate {
             self.locationLabel.hidden = true
             self.mapView.hidden = false
             self.actionButton.setTitle(LabelText.Submit.rawValue, forState: .Normal)
-            self.locationTextView.text = LabelText.Link.rawValue
+            if student.userURLPath.isEmpty {
+                self.locationTextView.text = LabelText.Link.rawValue
+            } else {
+                self.locationTextView.text = student.userURLPath
+            }
             
         case .SelectURL:
             print("Not implemented yet!")

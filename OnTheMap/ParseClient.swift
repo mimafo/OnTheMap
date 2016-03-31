@@ -10,12 +10,18 @@ import Foundation
 
 class ParseClient: NetworkClient {
     
+    //MARK: Constants
+    static let MaxCount = "100"
+    static let NotFound = -1
+    
     //MARK: Properties
     lazy var students = [StudentInformation]()
-    var udacityUser = UdacityClient.sharedInstance().udacityUser
+    var udacityUser: UdacityUser {
+        return UdacityClient.sharedInstance().udacityUser
+    }
+    var userIndex = ParseClient.NotFound
     
-    //MARK: Constants
-    let maxCount = "100"
+
     
     //MARK: Public functions
     func fetchStudents(studentCompletionHandler: (success: Bool, errorMessage: String?) -> Void) -> Void {
@@ -51,6 +57,7 @@ class ParseClient: NetworkClient {
             self.students.removeAll()
             
             //Loop throught he JSON list and add them to the student array
+            var index = 0
             for object in jsonList {
                 
                 if let dic = object as? [String : AnyObject] {
@@ -59,8 +66,10 @@ class ParseClient: NetworkClient {
                     //Check if the student is the Udacity User
                     if student.accountKey == self.udacityUser.student.accountKey {
                         self.udacityUser.setStudent(student)
+                        self.userIndex = index
                     }
-                }     
+                }
+                index++
             }
             
             studentCompletionHandler(success: true, errorMessage: nil)
@@ -73,6 +82,7 @@ class ParseClient: NetworkClient {
         let genericUserMessage = "Posting student location failed"
         self.postStudentLocation(student, mapString: mapString) { (result, error) -> Void in
             
+            let addMode = (self.userIndex == ParseClient.NotFound)
             func unsuccessful() {
                 studentCompletionHandler(success: false, errorMessage: genericUserMessage)
             }
@@ -90,10 +100,16 @@ class ParseClient: NetworkClient {
             
             print("\(result)")
             
-            //Remove the last student for the list and insert the new one at the beginning
-            if self.students.count == 100 {
-                self.students.removeLast()
+            if addMode {
+                //Remove the last student for the list and insert the new one at the beginning
+                if self.students.count == 100 {
+                    self.students.removeLast()
+                }
+            } else {
+                self.students.removeAtIndex(self.userIndex)
+                self.udacityUser.setStudent(student)
             }
+            self.userIndex = 0
             self.students.insert(student, atIndex: 0)
             
             studentCompletionHandler(success: true, errorMessage: nil)
@@ -111,7 +127,7 @@ class ParseClient: NetworkClient {
     private func getStudentLocation(completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let queryList = [ParseConstants.ParseQueryKeys.Order : ParseConstants.ParseQueryValues.DescUpdatedAt,
-            ParseConstants.ParseQueryKeys.Limit : maxCount]
+            ParseConstants.ParseQueryKeys.Limit : ParseClient.MaxCount]
         //let queryList = [ParseConstants.ParseQueryKeys.Limit : maxCount]
         
         let request = NSMutableURLRequest(URL: self.buildURLPath([ParseConstants.Parse.StudentLocationPath], queryList: queryList))
@@ -127,14 +143,14 @@ class ParseClient: NetworkClient {
         
         var pathList = [String]()
         pathList.append(ParseConstants.Parse.StudentLocationPath)
-        if student.isOnTheMap {
+        if self.userIndex != ParseClient.NotFound {
             pathList.append(ParseConstants.Parse.Slash)
             pathList.append(student.objectId)
             
         }
-        let request = NSMutableURLRequest(URL: self.buildURLPath([ParseConstants.Parse.StudentLocationPath],queryList: nil))
+        let request = NSMutableURLRequest(URL: self.buildURLPath(pathList,queryList: nil))
         
-        //Set request values for POST
+        //Set request values for POST/PUT
         request.HTTPMethod = (student.isOnTheMap) ? ParseConstants.ParseMethods.Put : ParseConstants.ParseMethods.Post
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

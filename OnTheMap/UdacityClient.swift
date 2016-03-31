@@ -120,9 +120,6 @@ class UdacityClient : NetworkClient {
         
         self.deleteUserSession { (result, error) -> Void in
             
-            //Regardless of success or failure, initialize the user object
-            self.udacityUser = UdacityUser()
-            
             if let error = error {
                 print("\(error)")
                 if let message = error.userInfo[NetworkClient.ErrorCatagoryKey] as? String {

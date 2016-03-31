@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UdacityUser {
+class UdacityUser {
     
     
     //Store session data
@@ -18,7 +18,7 @@ struct UdacityUser {
     //Student Information
     var student = StudentInformation()
     
-    mutating func setStudent(student: StudentInformation) {
+    func setStudent(student: StudentInformation) {
         self.student = student
     }
     
